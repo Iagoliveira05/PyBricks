@@ -14,9 +14,7 @@ async def quadrado():
 
 def main():
     while True:
-        # chassi.seguirLinha(speed=12)
-        # chassi.apagarLuzes()
-        print(chassi.getLeftReflection())
+        chassi.seguirLinha(speed=12)
 
 chassi = Chassi()
 

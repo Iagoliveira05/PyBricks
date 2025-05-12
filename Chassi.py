@@ -12,7 +12,6 @@ class Chassi:
         self.LEFT_COLOR_SENSOR = ColorSensor(port= Port.C)
         self.RIGHT_COLOR_SENSOR = ColorSensor(port= Port.D)
         ULTRASSONIC_SENSOR = UltrasonicSensor(port= Port.E)
-        self.LEFT_COLOR_SENSOR.lights.on([10, 10, 10])
         self.kP = 1
         self.kI = 0.0
         self.kD = 0
@@ -76,7 +75,3 @@ class Chassi:
 
     def getHSVColor(self):
         return self.LEFT_COLOR_SENSOR.hsv(surface= True)
-    
-    def apagarLuzes(self):
-        # self.LEFT_COLOR_SENSOR.lights.on([0, 30, 30])
-        self.LEFT_COLOR_SENSOR.lights.off()
