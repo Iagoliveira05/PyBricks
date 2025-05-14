@@ -16,6 +16,9 @@ buzina = False
 seta = ""
 hub.imu.reset_heading(0)
 
+print("\x1b[H\x1b[3J", end="")
+print("\x1b[H\x1b[2J", end="")
+
 while True:
     # Buzina
     if (buzinaTrigger.pressed()):
@@ -40,7 +43,7 @@ while True:
     else:
         seta = ""
 
-    curva = hub.imu.heading() * 1.5
+    curva = hub.imu.heading() * 2
 
     data = (velocidade, curva, buzina, seta)
 
