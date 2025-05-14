@@ -11,7 +11,8 @@ class Chassi:
         self.RIGHT_MOTOR = Motor(port=Port.B)
         self.LEFT_COLOR_SENSOR = ColorSensor(port= Port.C)
         self.RIGHT_COLOR_SENSOR = ColorSensor(port= Port.D)
-        ULTRASSONIC_SENSOR = UltrasonicSensor(port= Port.E)
+        self.ULTRASSONIC_SENSOR = UltrasonicSensor(port= Port.E)
+        self.hub.speaker.volume(100)
 
         self.kP = 1.7
         self.kI = 0.0
@@ -27,7 +28,7 @@ class Chassi:
         self.chassi.use_gyro(use_gyro= True)
         self.chassi.heading_control.pid(kp=10,ki=2)
         self.chassi.distance_control.pid(kp=2)
-        self.chassi.settings(straight_speed=80,turn_acceleration=800, turn_rate=800)
+        self.chassi.settings(straight_speed=80, straight_acceleration=800,turn_acceleration=800, turn_rate=800)
 
     def getLeftReflection(self):
         return self.LEFT_COLOR_SENSOR.reflection()
@@ -74,3 +75,28 @@ class Chassi:
     def getHSVColor(self):
         return self.LEFT_COLOR_SENSOR.hsv(surface= True)
     
+    def drive(self, velocidade, turn, buzina, seta):
+        if (buzina):
+            self.hub.speaker.beep(5000,50)
+            self.hub.speaker.beep(100,100)
+            self.hub.speaker.beep(100,100)
+        else:
+            self.hub.speaker.beep(0)
+
+        if (seta == "left"):
+            self.ULTRASSONIC_SENSOR.lights.on([0, 100, 0, 100])
+            wait(100)
+            self.ULTRASSONIC_SENSOR.lights.off()
+            wait(100)
+
+
+        elif (seta == "right"):
+            self.ULTRASSONIC_SENSOR.lights.on([100, 0, 100, 0])
+            wait(100)
+            self.ULTRASSONIC_SENSOR.lights.off()
+            wait(100)
+
+        else:
+            self.ULTRASSONIC_SENSOR.lights.off()
+
+        self.chassi.drive(speed=velocidade, turn_rate=turn)
