@@ -13,14 +13,16 @@ async def quadrado():
         await chassi.virar(angulo= 90)
 
 def main():
-    while True:
-        chassi.seguirLinha(speed=12)
+    chassi.seguirReto(50)
+        
+    chassi.virar(90)
 
 chassi = Chassi()
 
 
 hub = PrimeHub()
 hub.imu.reset_heading(0)
+print("Inicial", hub.imu.heading())
 
 run_task(main())
 

@@ -12,9 +12,10 @@ class Chassi:
         self.LEFT_COLOR_SENSOR = ColorSensor(port= Port.C)
         self.RIGHT_COLOR_SENSOR = ColorSensor(port= Port.D)
         ULTRASSONIC_SENSOR = UltrasonicSensor(port= Port.E)
-        self.kP = 1
+
+        self.kP = 1.7
         self.kI = 0.0
-        self.kD = 0
+        self.kD = 2
         self.last_error = 0.0
 
         self.chassi = DriveBase(
@@ -47,7 +48,6 @@ class Chassi:
         error = self.getLeftReflection() - self.getRightReflection()
         outputDirection = self.calculatePID(error= error)
         self.chassi.drive(speed, outputDirection)
-        print(self.getLeftReflection())
 
     def virar(self, angulo):
         self.chassi.use_gyro(use_gyro= True)
@@ -57,7 +57,6 @@ class Chassi:
             then= Stop.BRAKE
         )
         print(self.chassi.angle())
-
     def seguirReto(self, distancia): 
         self.chassi.use_gyro(use_gyro= True)
         self.chassi.straight(
@@ -68,10 +67,10 @@ class Chassi:
 
     def getColorLeft(self):
         return self.LEFT_COLOR_SENSOR.color(surface= True)
-
     
     def getColorRight(self):
         return self.RIGHT_COLOR_SENSOR.color(surface= True)
 
     def getHSVColor(self):
         return self.LEFT_COLOR_SENSOR.hsv(surface= True)
+    
